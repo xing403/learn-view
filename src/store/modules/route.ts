@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import type { RouteRecordRaw } from 'vue-router'
 import useUserStore from './user'
-import { systemRoutes } from '@/router/routes'
+import { asyncRoutes } from '@/router/routes'
 import api from '@/api'
 import { resolveRoutePath } from '@/utils'
 import type { Route } from '@/types/global'
@@ -93,7 +93,7 @@ const useRouteStore = defineStore(
             return returnRoutes
         })
         const flatSystemRoutes = computed(() => {
-          const routes = [...systemRoutes]
+          const routes = asyncRoutes
           routes.forEach(item => flatAsyncRoutes(item))
           return routes
         })
@@ -118,7 +118,6 @@ const useRouteStore = defineStore(
             const res: any = []
             routes.forEach((route) => {
                 if (hasPermission(permissions, route)) {
-
                     const tmpRoute = cloneDeep(route)
                     if (tmpRoute.children) {
                         tmpRoute.children = filterAsyncRoutes(tmpRoute.children, permissions)
@@ -133,46 +132,15 @@ const useRouteStore = defineStore(
             return res
         }
         // 根据权限动态生成路由（前端生成）
-        async function generateRoutesAtFront(asyncRoutes: Route.recordMainRaw[]) {
+        async function generateRoutesAtFront(asyncRoutes: RouteRecordRaw[]) {
             let accessedRoutes
-            // 如果权限功能开启，则需要对路由数据进行筛选过滤
+            // 获取权限
             const permissions = await userStore.getPermissions()
-
+            // 过滤权限路由
             accessedRoutes = filterAsyncRoutes(asyncRoutes, permissions)
             // 设置 routes 数据
             isGenerate.value = true
             routes.value = accessedRoutes.filter(item => item.children?.length !== 0) as any
-        }
-        // 根据权限动态生成路由（后端获取）
-        async function generateRoutesAtBack() {
-            await api.get('/api/route/list', {
-            }).then(async (res) => {
-                const asyncRoutes = formatBackRoutes(res.data)
-                const permissions = await userStore.getPermissions() as string
-                let accessedRoutes = filterAsyncRoutes(asyncRoutes, permissions)
-                // 设置 routes 数据
-                isGenerate.value = true
-                routes.value = accessedRoutes.filter(item => item.children.length !== 0) as any
-            }).catch(() => { })
-        }
-
-        // 格式化后端路由数据
-        function formatBackRoutes(routes: any, views = import.meta.glob('../../views/**/*.vue')): Route.recordMainRaw[] {
-            return routes.map((route: any) => {
-                switch (route.component) {
-                    case 'Layout':
-                        route.component = () => import('@/layouts/index.vue')
-                        break
-                    default:
-                        if (route.component) {
-                            route.component = views[`../../views/${route.component}`]
-                        }
-                }
-                if (route.children) {
-                    route.children = formatBackRoutes(route.children, views)
-                }
-                return route
-            })
         }
         // 记录 accessRoutes 路由，用于登出时删除路由
         function setCurrentRemoveRoutes(routes: Function[]) {
@@ -194,7 +162,6 @@ const useRouteStore = defineStore(
             flatRoutes,
             flatSystemRoutes,
             generateRoutesAtFront,
-            generateRoutesAtBack,
             setCurrentRemoveRoutes,
             removeRoutes,
         }

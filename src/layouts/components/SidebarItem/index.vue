@@ -14,7 +14,6 @@ const props = defineProps({
     default: '',
   },
 })
-console.log(Array.isArray(props.item));
 
 const settingsStore = useSettingsStore()
 

@@ -28,24 +28,14 @@ const useMenuStore = defineStore(
                 meta: {},
                 children: [],
             }]
-            if (settingsStore.settings.app.routeBaseOn !== 'filesystem') {
-                if (settingsStore.settings.menu.menuMode === 'single') {
-                    returnMenus[0].children = []
-                    routeStore.routes.forEach((item) => {
-                        returnMenus[0].children?.push(...item.children as Menu.recordRaw[])
-                    })
-                }
-                else {
-                    returnMenus = routeStore.routes as Menu.recordMainRaw[]
-                }
-            }
-            else {
-                returnMenus = menus.value
-            }
+            // 从路由中获取
+            console.log(routeStore.routes )
+            returnMenus = routeStore.routes as Menu.recordMainRaw[]
             return returnMenus
         })
         // 次导航数据
         const sidebarMenus = computed<Menu.recordMainRaw['children']>(() => {
+            
             return allMenus.value.length > 0
                 ? allMenus.value[actived.value].children
                 : []
@@ -129,20 +119,10 @@ const useMenuStore = defineStore(
         // 生成导航（前端生成）
         async function generateMenusAtFront() {
             let accessedMenus
-            // 如果权限功能开启，则需要对导航数据进行筛选过滤
-            const permissions = await userStore.getPermissions() as string
+            // 如果权限功能开启
+            const permissions = await userStore.getPermissions()
             accessedMenus = filterAsyncMenus(menu, permissions)
             menus.value = accessedMenus.filter(item => item.children.length !== 0)
-        }
-        // 生成导航（后端生成）
-        async function generateMenusAtBack() {
-            await api.get('/api/menu/list').then(async (res) => {
-                let accessedMenus: Menu.recordMainRaw[]
-                // 如果权限功能开启，则需要对导航数据进行筛选过滤
-                const permissions = await userStore.getPermissions() as string
-                accessedMenus = filterAsyncMenus(res.data, permissions)
-                menus.value = accessedMenus.filter(item => item.children.length !== 0)
-            }).catch(() => { })
         }
         // 切换主导航
         function setActived(data: number | string) {
@@ -167,7 +147,6 @@ const useMenuStore = defineStore(
             sidebarMenusFirstDeepestPath,
             defaultOpenedPaths,
             generateMenusAtFront,
-            generateMenusAtBack,
             setActived,
         }
     },

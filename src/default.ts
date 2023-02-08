@@ -17,7 +17,7 @@ const globalSettings: Settings.all = {
     "enableSubMenuCollapseButton": true,
     "enableHotkeys": true,
     "baseOn": "frontend",
-    "menuMode": "side",
+    "menuMode": "single",
     "switchMainMenuAndPageJump": true,
     "subMenuUniqueOpened": true,
     "subMenuCollapse": false              // 菜单栏是是否折叠

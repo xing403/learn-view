@@ -6,7 +6,6 @@ import useMenuStore from '@/store/modules/menu'
 
 const settingsStore = useSettingsStore()
 const menuStore = useMenuStore()
-
 const sidebarScrollTop = ref(0)
 
 function onSidebarScroll(e: Event) {
@@ -17,10 +16,12 @@ function onSidebarScroll(e: Event) {
 <template>
   <div v-if="['side', 'head', 'single'].includes(settingsStore.settings.menu.menuMode) || settingsStore.mode === 'mobile'" class="sub-sidebar-container" :class="{ 'is-collapse': settingsStore.mode === 'pc' && settingsStore.settings.menu.subMenuCollapse }" @scroll="onSidebarScroll">
     <Logo
-      :show-logo="settingsStore.settings.menu.menuMode === 'single'" class="sidebar-logo" :class="{
+      :show-logo="false" class="sidebar-logo" :class="{
         'sidebar-logo-bg': settingsStore.settings.menu.menuMode === 'single',
         'shadow': sidebarScrollTop,
       }"
+      :show-title="true"
+      :title="'自习室管理系统'"
     />
     <!-- 侧边栏模式（无主导航） -->
     <el-menu

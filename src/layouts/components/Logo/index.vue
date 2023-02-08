@@ -11,11 +11,14 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  title: {
+    type: String,
+    default: "LOGO 标题",
+  },
 })
 
 const settingsStore = useSettingsStore()
 
-const title = ref(import.meta.env.VITE_APP_TITLE)
 const logo = ref(imgLogo)
 
 const to = computed(() => {

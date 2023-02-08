@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
-import { asyncRoutes, constantRoutes, systemRoutes } from './routes'
+import { asyncRoutes, constantRoutes } from './routes'                            // 获取 静态路由 和 动态路由
 import useSettingsStore from '@/store/modules/settings'
 import useUserStore from "@/store/modules/user";
 import useRouteStore from "@/store/modules/route";

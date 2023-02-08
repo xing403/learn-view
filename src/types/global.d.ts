@@ -233,6 +233,7 @@ declare namespace Route {
       title?: string | Function
       icon?: string
       auth?: string | string[]
+      breadcrumb?: boolean
     }
     children: recordRaw[]
   }

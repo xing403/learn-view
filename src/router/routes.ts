@@ -1,8 +1,6 @@
 import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from 'virtual:generated-pages'
 import type { RouteRecordRaw } from 'vue-router'
-import userRoutes from './modules/user'
-import merchantRoutes from './modules/merchant'
 import type { Route } from '#/global'
 
 // 固定路由（默认路由）
@@ -32,54 +30,54 @@ const constantRoutes: RouteRecordRaw[] = [
     },
   },
 ]
-// 系统路由
-const systemRoutes: RouteRecordRaw[] = [
+// 动态路由（异步路由、导航栏路由）,需要过滤
+const asyncRoutes: RouteRecordRaw[] = [
   {
     path: '/',
-    name:"首页",
+    name: "首页",
     component: () => import('@/layouts/index.vue'),
     meta: {
       title: "付费自习室系统",
       breadcrumb: false,
-      icon:"sidebar-menu"
+      icon: "sidebar-menu",
     },
     children: [
       {
-        path: '',
+        path: '/',
         name: 'home',
         component: () => import('@/views/index.vue'),
         meta: {
-          title: "付费自习室系统",
+          title: "首页",
           breadcrumb: false,
+          icon: "sidebar-menu",
+          sidebar: true
         },
       },
       {
-        path: 'reload',
+        path: '/setting',
+        name: 'setting',
+        component: () => import('@/views/personal/setting.vue'),
+        meta: {
+          title: '个人设置',
+          breadcrumb: true,
+          sidebar: false
+        },
+      },
+      {
+        path: '/reload',
         name: 'reload',
         component: () => import('@/views/reload.vue'),
         meta: {
           title: '重新加载',
           breadcrumb: false,
+          sidebar: false
         },
       },
     ],
   },
 ]
 
-// 动态路由（异步路由、导航栏路由）
-const asyncRoutes: Route.recordMainRaw[] = [
-  {
-    meta: {
-      title: '演示',
-      icon: 'sidebar-default',
-    },
-    children: [
-      // userRoutes,
-      systemRoutes
-      // merchantRoutes,
-    ],
-  },
-]
+
 
 const constantRoutesByFilesystem = generatedRoutes.filter((item) => {
   return item.meta?.enabled !== false && item.meta?.constant === true
@@ -91,7 +89,6 @@ const asyncRoutesByFilesystem = setupLayouts(generatedRoutes.filter((item) => {
 
 export {
   constantRoutes,
-  systemRoutes,
   asyncRoutes,
   constantRoutesByFilesystem,
   asyncRoutesByFilesystem,

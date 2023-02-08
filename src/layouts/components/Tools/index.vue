@@ -12,7 +12,7 @@ const userStore = useUserStore()
 const mainPage = useMainPage()
 const { isFullscreen, toggle } = useFullscreen()
 
-function userCommand(command: 'home' | 'setting' | 'hotkeys' | 'logout') {
+function userCommand(command: 'home' | 'setting'| 'logout') {
   switch (command) {
     case 'home':
       router.push({
@@ -21,11 +21,8 @@ function userCommand(command: 'home' | 'setting' | 'hotkeys' | 'logout') {
       break
     case 'setting':
       router.push({
-        name: 'personalSetting',
+        name: 'setting',
       })
-      break
-    case 'hotkeys':
-      eventBus.emit('global-hotkeys-intro-toggle')
       break
     case 'logout':
       userStore.logout().then(() => {
@@ -77,9 +74,6 @@ function userCommand(command: 'home' | 'setting' | 'hotkeys' | 'logout') {
           </el-dropdown-item>
           <el-dropdown-item command="setting">
             个人设置
-          </el-dropdown-item>
-          <el-dropdown-item v-if="settingsStore.mode === 'pc'" divided command="hotkeys">
-            快捷键介绍
           </el-dropdown-item>
           <el-dropdown-item divided command="logout">
             退出登录

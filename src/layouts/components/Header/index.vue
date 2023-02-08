@@ -25,7 +25,6 @@ function handlerMouserScroll(event: WheelEvent) {
       <div class="header-container">
         <div class="main">
           <Logo />
-          <!-- 顶部模式 -->
           <div ref="navRef" class="nav" @wheel.prevent="handlerMouserScroll">
             <template v-for="(item, index) in menuStore.allMenus" :key="index">
               <div v-if="item.children && item.children.length !== 0" class="item-container" :class="{ active: index === menuStore.actived }">
