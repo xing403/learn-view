@@ -3,7 +3,7 @@ import { asyncRoutes, constantRoutes } from './routes'                          
 import useSettingsStore from '@/store/modules/settings'
 import useUserStore from "@/store/modules/user";
 import useRouteStore from "@/store/modules/route";
-
+import useMenuStore from "@/store/modules/menu";
 
 //  创建路由
 const router = createRouter({
@@ -15,9 +15,10 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
   const routeStore = useRouteStore()
+  const menuStore =useMenuStore()
   const settingsStore = useSettingsStore()
 
-  if (userStore.login_status()) {
+  if (await userStore.login_status()) {
     
     if (routeStore.isGenerate) {
       if (to.name === 'login') {
@@ -44,6 +45,11 @@ router.beforeEach(async (to, from, next) => {
         })
       }
       routeStore.setCurrentRemoveRoutes(removeRoutes)
+      
+
+      // 生成导航
+      menuStore.generateMenusAtFront();
+      
       // 动态路由生成并注册后，重新进入当前路由
       next({
         path: to.path,

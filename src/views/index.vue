@@ -6,21 +6,19 @@
     
 <script setup lang='ts'>
 import useUserStore from '@/store/modules/user';
+import api from '@/api';
 
 const userStore = useUserStore()
 const permission = ref(userStore.permissions);
-
 </script>
 
 <template>
-    <div>
-        <!-- 无法显示 -->
-        <div :class="permission.value" v-if="permission.value == 'merchant'">
+    <div :class="permission" class="page-main">
+        <template v-if="permission == 'merchant'">
             商家
-        </div>
-        <div>
-            用户
-        </div>
+        </template>
+        <template v-else-if="permission == 'user'">用户</template>
+        <template v-else>管理员</template>
     </div>
 </template>
 

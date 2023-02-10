@@ -19,7 +19,8 @@ const checkPasswordRules = (rule: any, value: string, callback: Function) => {
 }
 const rules = reactive({
     userName: [
-        { required: true, message: '请输入用户名', trigger: 'blur' }
+        { required: true, message: '请输入用户名', trigger: 'blur' },
+        { min: 2, message: '用户名长度不少于2位', trigger: 'blur' },
     ],
     userAccount: [
         { required: true, message: '请输入账号', trigger: 'blur' },
@@ -36,7 +37,6 @@ const rules = reactive({
     ]
 
 })
-const router = useRouter()
 const formRef = ref<FormInstance>();
 const userStore = useUserStore()
 let loading = ref(false)

@@ -124,6 +124,7 @@ const useSettingsStore = defineStore(
           break
       }
       document.body.setAttribute('data-mode', val)
+      document.body
     }, {
       immediate: true,
     })

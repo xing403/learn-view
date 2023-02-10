@@ -3,6 +3,9 @@ import generatedRoutes from 'virtual:generated-pages'
 import type { RouteRecordRaw } from 'vue-router'
 import type { Route } from '#/global'
 
+import MembersRoute from "./modules/members"
+import RoomsRoute from "./modules/rooms"
+
 // 固定路由（默认路由）
 const constantRoutes: RouteRecordRaw[] = [
   {
@@ -22,6 +25,16 @@ const constantRoutes: RouteRecordRaw[] = [
     },
   },
   {
+    path: '/reload',
+    name: 'reload',
+    component: () => import('@/views/reload.vue'),
+    meta: {
+      title: '重新加载',
+      breadcrumb: false,
+      sidebar: false
+    },
+  },
+  {
     path: '/:all(.*)*',
     name: 'notFound',
     component: () => import('@/views/[...all].vue'),
@@ -34,12 +47,11 @@ const constantRoutes: RouteRecordRaw[] = [
 const asyncRoutes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: "首页",
+    name: "index",
     component: () => import('@/layouts/index.vue'),
     meta: {
       title: "付费自习室系统",
       breadcrumb: false,
-      icon: "sidebar-menu",
     },
     children: [
       {
@@ -52,30 +64,27 @@ const asyncRoutes: RouteRecordRaw[] = [
           icon: "sidebar-menu",
           sidebar: true
         },
-      },
-      {
-        path: '/setting',
-        name: 'setting',
-        component: () => import('@/views/personal/setting.vue'),
-        meta: {
-          title: '个人设置',
-          breadcrumb: true,
-          sidebar: false
-        },
-      },
-      {
-        path: '/reload',
-        name: 'reload',
-        component: () => import('@/views/reload.vue'),
-        meta: {
-          title: '重新加载',
-          breadcrumb: false,
-          sidebar: false
-        },
+        children: [
+          {
+            path: '/setting',
+            name: 'setting',
+            component: () => import('@/views/personal/setting.vue'),
+            meta: {
+              title: '个人设置',
+              breadcrumb: true,
+              sidebar: false
+            },
+          },
+        ]
       },
     ],
   },
 ]
+if (asyncRoutes[0].children) {
+
+  asyncRoutes[0].children.push(MembersRoute)
+  asyncRoutes[0].children.push(RoomsRoute)
+}
 
 
 

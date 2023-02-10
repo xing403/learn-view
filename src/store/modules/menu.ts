@@ -5,8 +5,6 @@ import useRouteStore from './route'
 import type { Menu } from '#/global'
 
 import { resolveRoutePath } from '@/utils'
-import api from '@/api'
-import menu from '@/menu'
 
 const useMenuStore = defineStore(
     // 唯一ID
@@ -29,16 +27,18 @@ const useMenuStore = defineStore(
                 children: [],
             }]
             // 从路由中获取
-            console.log(routeStore.routes )
             returnMenus = routeStore.routes as Menu.recordMainRaw[]
             return returnMenus
         })
         // 次导航数据
         const sidebarMenus = computed<Menu.recordMainRaw['children']>(() => {
-            
-            return allMenus.value.length > 0
-                ? allMenus.value[actived.value].children
-                : []
+            let res: Menu.recordRaw[] = []
+            if(allMenus.value.length > 0){
+                allMenus.value.forEach(item=>{
+                    res = filterAsyncMenus(item.children,userStore.getPermissions())
+                })
+            }
+            return res;
         })
         // 次导航第一层最深路径
         const sidebarMenusFirstDeepestPath = computed(() => {
@@ -118,10 +118,10 @@ const useMenuStore = defineStore(
         }
         // 生成导航（前端生成）
         async function generateMenusAtFront() {
-            let accessedMenus
-            // 如果权限功能开启
             const permissions = await userStore.getPermissions()
-            accessedMenus = filterAsyncMenus(menu, permissions)
+            const routeMenu = routeStore.routes as Menu.recordMainRaw[]
+
+            let accessedMenus = filterAsyncMenus(routeMenu, permissions)
             menus.value = accessedMenus.filter(item => item.children.length !== 0)
         }
         // 切换主导航
@@ -138,6 +138,7 @@ const useMenuStore = defineStore(
                 }
             }
         }
+
 
         return {
             menus,

@@ -8,7 +8,7 @@ import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 import "element-plus/dist/index.css";// 白天主题
 import 'element-plus/theme-chalk/dark/css-vars.css'// element-plus 夜间主题
 import 'uno.css'    // unocss
-import '@/style.less'
+import '@/assets/styles/global.less'
 import 'virtual:svg-icons-register'// 加载 svg 图标
 const app = createApp(App);
 import SvgIcon from '@/components/SvgIcon/index.vue'// svg组件

@@ -1,4 +1,3 @@
-
 // 全局变量
 :root {
   // 头部宽度（默认自适应宽度，可固定宽度，固定宽度后为居中显示）
@@ -47,6 +46,13 @@ body {
 
   &.hidden {
     overflow: hidden;
+  }
+
+  .page-main{
+    margin: 20px;
+    padding: 20px;
+    height: 100%;
+    background-color: #fff;
   }
 }
 
@@ -286,4 +292,54 @@ textarea {
     --g-nprogress-color: var(--el-color-primary);
   }
 }
+// 文字超出隐藏，默认为单行超出隐藏，可设置多行
+.text-overflow(@line: 1, @fixed-width: true) {
+  & when((@line = 1) and (@fixed-width = true)) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  & when not((@line = 1) and (@fixed-width = true)) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $line;
+    overflow: hidden;
+  }
+}
 
+// 定位居中，默认水平居中，可选择垂直居中，或者水平垂直都居中
+.position-center(@type: x) {
+  & when(@type = x) {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  & when(@type = y) {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  & when(@type = xy) {
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+  }
+}
+
+// 文字两端对齐
+.justify-align() {
+  text-align: justify;
+  text-align-last: justify;
+}
+
+// 清除浮动
+.clearfix() {
+  zoom: 1;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}

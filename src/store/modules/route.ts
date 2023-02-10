@@ -16,7 +16,6 @@ const useRouteStore = defineStore(
         const routes = ref<Route.recordMainRaw[]>([])
         // 记录 accessRoutes 路由，用于登出时删除路由
         const currentRemoveRoutes = ref<Function[]>([]);
-
         // 将多层嵌套路由处理成两层，保留顶层和最子层路由，中间层级将被拍平
         function flatAsyncRoutes<T extends RouteRecordRaw>(routes: T): T {
             if (routes.children) {
@@ -93,9 +92,9 @@ const useRouteStore = defineStore(
             return returnRoutes
         })
         const flatSystemRoutes = computed(() => {
-          const routes = asyncRoutes
-          routes.forEach(item => flatAsyncRoutes(item))
-          return routes
+            const routes = asyncRoutes
+            routes.forEach(item => flatAsyncRoutes(item))
+            return routes
         })
 
         // 判断是否有权限
@@ -107,8 +106,7 @@ const useRouteStore = defineStore(
                     : typeof route.meta?.auth === 'object'
                         ? route.meta.auth.includes(permissions)
                         : false
-            }
-            else {
+            }else {
                 isAuth = true
             }
             return isAuth
@@ -121,10 +119,8 @@ const useRouteStore = defineStore(
                     const tmpRoute = cloneDeep(route)
                     if (tmpRoute.children) {
                         tmpRoute.children = filterAsyncRoutes(tmpRoute.children, permissions)
-                        
                         tmpRoute.children.length && res.push(tmpRoute)
-                    }
-                    else {
+                    } else {
                         res.push(tmpRoute)
                     }
                 }
@@ -134,13 +130,12 @@ const useRouteStore = defineStore(
         // 根据权限动态生成路由（前端生成）
         async function generateRoutesAtFront(asyncRoutes: RouteRecordRaw[]) {
             let accessedRoutes
-            // 获取权限
             const permissions = await userStore.getPermissions()
-            // 过滤权限路由
             accessedRoutes = filterAsyncRoutes(asyncRoutes, permissions)
-            // 设置 routes 数据
             isGenerate.value = true
-            routes.value = accessedRoutes.filter(item => item.children?.length !== 0) as any
+            routes.value = accessedRoutes.filter(item => {
+                return item.children?.length !== 0
+            }) as any
         }
         // 记录 accessRoutes 路由，用于登出时删除路由
         function setCurrentRemoveRoutes(routes: Function[]) {

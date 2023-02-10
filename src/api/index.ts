@@ -50,7 +50,8 @@ api.interceptors.response.use(
      * 请求出错时 massage 会返回错误信息
      */
     if (response.data.code === 0) {
-      Notification("success", response.data.message)
+      if(response.data.message !== "")// 有提示内容
+        Notification("success", response.data.message)
       return Promise.resolve(response.data)// 返回请求正确的数据
     }
     Notification("error", response.data.message)

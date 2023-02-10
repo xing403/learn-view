@@ -12,26 +12,15 @@ const settingsStore = useSettingsStore()
 const keepAliveStore = useKeepAliveStore()
 
 const isLink = computed(() => !!routeInfo.meta.link)
-
-watch(() => settingsStore.settings.menu.subMenuCollapse, (val) => {
-  if (settingsStore.mode === 'mobile') {
-    if (!val) {
-      document.body.classList.add('hidden')
-    }
-    else {
-      document.body.classList.remove('hidden')
-    }
-  }
-})
-
+let key = ref<string>("");
 watch(() => routeInfo.path, () => {
   if (settingsStore.mode === 'mobile') {
     settingsStore.$patch((state) => {
       state.settings.menu.subMenuCollapse = true
     })
   }
+  key.value = routeInfo.path + new Date().getTime()
 })
-
 </script>
 
 <template>
@@ -50,10 +39,10 @@ watch(() => routeInfo.path, () => {
           <Topbar
             v-if="!(settingsStore.settings.menu.menuMode === 'head' && !settingsStore.settings.menu.enableSubMenuCollapseButton && !settingsStore.settings.breadcrumb.enable)" />
           <div class="main">
-            <router-view v-slot="{ Component, route }">
+            <router-view v-slot="{ Component, route }" :key="key">
               <transition name="main" mode="out-in" appear>
                 <keep-alive :include="keepAliveStore.list">
-                  <component :is="Component" v-show="!isLink" :key="route.fullPath" />
+                  <component :is="Component" v-show="!isLink" :key="route.path" />
                 </keep-alive>
               </transition>
             </router-view>
