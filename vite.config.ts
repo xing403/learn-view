@@ -1,4 +1,3 @@
-import fs from 'node:fs'
 import { defineConfig } from 'vite'
 import { resolve } from "path";
 

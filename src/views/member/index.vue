@@ -28,7 +28,7 @@ const viewDetails = (row: any) => {
         <h2 class="header title">会员列表</h2>
         <el-table :data="members" row-key="endTime">
             <el-table-column label="用户名" sortable prop="userName"></el-table-column>
-            <el-table-column label="自习室" sortable prop="roomName"></el-table-column>
+            <el-table-column label="自习室名称" sortable prop="roomName"></el-table-column>
             <el-table-column label="性别" prop="gender"></el-table-column>
             <el-table-column label="联系电话" prop="userPhone"></el-table-column>
             <el-table-column column-key="endTime" sortable label="到期时间" prop="endTime"></el-table-column>
