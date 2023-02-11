@@ -6,9 +6,6 @@ import useSettingsStore from '@/store/modules/settings'
 
 const settingsStore = useSettingsStore()
 
-const buttonConfig = ref({
-  autoInsertSpace: true,
-})
 
 // 侧边栏主导航当前实际宽度
 const mainSidebarActualWidth = computed(() => {
@@ -54,7 +51,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-config-provider>
+  <el-config-provider :locale="zhCn">
     <RouterView :style="{
       '--g-main-sidebar-actual-width': mainSidebarActualWidth,
       '--g-sub-sidebar-actual-width': subSidebarActualWidth,
