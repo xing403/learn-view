@@ -13,6 +13,7 @@ specifiers:
   '@vitejs/plugin-vue': ^4.0.0
   '@vueuse/core': ^9.12.0
   axios: ^1.3.2
+  dayjs: ^1.11.7
   element-plus: ^2.2.29
   hotkeys-js: ^3.10.1
   less: ^4.1.3
@@ -37,6 +38,7 @@ dependencies:
   '@element-plus/icons-vue': 2.0.10_vue@3.2.47
   '@vueuse/core': 9.12.0_vue@3.2.47
   axios: 1.3.2
+  dayjs: 1.11.7
   element-plus: 2.2.29_vue@3.2.47
   hotkeys-js: 3.10.1
   less: 4.1.3

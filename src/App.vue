@@ -54,10 +54,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <RouterView :style="{
-    '--g-main-sidebar-actual-width': mainSidebarActualWidth,
-    '--g-sub-sidebar-actual-width': subSidebarActualWidth,
-  }" />
+  <el-config-provider>
+    <RouterView :style="{
+      '--g-main-sidebar-actual-width': mainSidebarActualWidth,
+      '--g-sub-sidebar-actual-width': subSidebarActualWidth,
+    }" />
+  </el-config-provider>
 </template>
 
 <style lang="less">

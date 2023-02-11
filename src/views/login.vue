@@ -28,7 +28,7 @@ const formRef = ref<FormInstance>()
 const handleLogin = () => {
     loading.value = true
     formRef.value && formRef.value.validate((valid) => {
-        if (valid) {//通过校验
+        if (valid) {
             userStore.login(user.value).then(() => {
                 if (user.value.remember) {
                     localStorage.setItem('login_account', user.value.userAccount)
