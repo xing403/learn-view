@@ -87,13 +87,13 @@ const useRouteStore = defineStore(
                 routes.value.forEach((item) => {
                     returnRoutes.push(...cloneDeep(item.children))
                 })
-                returnRoutes.forEach(item => flatAsyncRoutes(item))
+                // returnRoutes.forEach(item => flatAsyncRoutes(item))
             }
             return returnRoutes
         })
         const flatSystemRoutes = computed(() => {
             const routes = asyncRoutes
-            routes.forEach(item => flatAsyncRoutes(item))
+            // routes.forEach(item => flatAsyncRoutes(item))
             return routes
         })
 
