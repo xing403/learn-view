@@ -2,7 +2,6 @@ import { cloneDeep } from 'lodash-es'
 import type { RouteRecordRaw } from 'vue-router'
 import useUserStore from './user'
 import { asyncRoutes } from '@/router/routes'
-import api from '@/api'
 import { resolveRoutePath } from '@/utils'
 import type { Route } from '@/types/global'
 

@@ -3,15 +3,16 @@ import { ref, reactive } from 'vue';
 import RoomDetail from "@/components/RoomDetail/index.vue"
 import useUserStore from '@/store/modules/user';
 import api from '@/api';
+import url from '@/api/RequestInterface';
+import router from '@/router';
 const userStore = useUserStore()
 const rooms = reactive([]) as any
 const detailRoom = ref() as any
 let room_detail_view = ref(false);
 let loading = ref(false)
-
 onMounted(() => {
     loading.value = true
-    api.post("/api/room/", { userAccount: userStore.userAccount }).then((resault) => {
+    api.post(url.URLPrefix + url.RoomList, { userAccount: userStore.userAccount }).then((resault) => {
         resault.data.forEach((item: any) => {
             rooms.push(item)
         });
@@ -29,6 +30,13 @@ const removeRoom = (row: any) => {
         console.log(res);
     })
 }
+const editRoom = (row: any) => {
+    console.log(row);
+
+    router.push({
+        path: "/rooms/edit/" + row.roomId,
+    })
+}
 </script>
 
 <template>
@@ -42,6 +50,11 @@ const removeRoom = (row: any) => {
             <el-table-column label="查看详情" width="150">
                 <template #default="scope">
                     <el-button link type="primary" @click="viewDetails(scope.row)">查看详情</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column label="编辑" width="100">
+                <template #default="scope">
+                    <el-button link type="warning" @click="editRoom(scope.row)">编辑</el-button>
                 </template>
             </el-table-column>
             <el-table-column label="删除" width="100">

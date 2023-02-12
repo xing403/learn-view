@@ -1,5 +1,6 @@
 // user store
 import api from '@/api'
+import url from "@/api/RequestInterface"
 import useRouteStore from './route';
 import useMenuStore from './menu';
 
@@ -17,7 +18,7 @@ const useUserStore = defineStore(
       userAccount: string,
       userPassword: string,
     }) {
-      const res = await api.post('/api/login', data)
+      const res = await api.post(url.URLPrefix + url.Login, data)
       localStorage.setItem('userAccount', res.data.userAccount)
       localStorage.setItem('permissions', res.data.userRole)
 
@@ -35,7 +36,7 @@ const useUserStore = defineStore(
       checkPassword: string
       userRole: string
     }) {
-      const res = await api.post('/api/register', data)
+      const res = await api.post(url.URLPrefix + url.Register, data)
       localStorage.setItem('userAccount', res.data.userAccount)
       localStorage.setItem('permissions', res.data.userRole)
       localStorage.setItem("last_login_time", new Date().getTime().toString())

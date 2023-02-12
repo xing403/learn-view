@@ -5,9 +5,20 @@
 </route>
     
 <script setup lang='ts'>
+import api from '@/api';
 import useUserStore from '@/store/modules/user';
 const userStore = useUserStore()
 const permission = ref(userStore.permissions);
+
+if (permission == "merchant") {
+    api.post("/api/statistics/detail", { uuserAccount: userStore.userAccount }).then((resault) => {
+        console.log(resault.data)
+    })
+}
+
+
+
+
 </script>
 
 <template>

@@ -24,8 +24,6 @@ app.component('SidebarItem', SidebarItem)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component);
 }
-
-
 const store = createPinia()
 app.use(ElementPlus, {
     locale: zhCn,

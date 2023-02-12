@@ -2,6 +2,7 @@
 import useUserStore from "@/store/modules/user";
 import { FormInstance, dayjs } from "element-plus";
 import api from "@/api";
+import url from "@/api/RequestInterface"
 
 const userStore = useUserStore()
 const member = reactive({
@@ -13,7 +14,6 @@ const member = reactive({
     roomId: "",
 })
 const rooms: any = reactive([]);
-console.log("添加会员")
 
 const validUserAccount = (rule: any, value: string, callback: Function) => {
     if (member.userName == "" && member.userAccount != "") {
@@ -33,8 +33,8 @@ const validUserAccount = (rule: any, value: string, callback: Function) => {
 }
 const rules = reactive({
     userAccount: [{ required: true, validator: validUserAccount, trigger: 'blur' }],
-    roomId: [{ required: true,message:"选择自习室", trigger: 'blur' }],
-    dateRange: [{ required: true,message:"选择时间", trigger: 'blur' }]
+    roomId: [{ required: true, message: "选择自习室", trigger: 'blur' }],
+    dateRange: [{ required: true, message: "选择时间", trigger: 'blur' }]
 })
 
 const formRef = ref<FormInstance>();
@@ -48,8 +48,8 @@ function additionMember() {
             member.beginTime = dayjs(member.dateRange[0]).format("YYYY-MM-DD HH:mm:ss")
             member.endTime = dayjs(member.dateRange[1]).format("YYYY-MM-DD HH:mm:ss")
             console.log(member);
-            
-            api.post("/api/member/addition", member).then(() => {
+
+            api.post(url.URLPrefix + url.MemberAddition, member).then(() => {
                 member.userAccount = ""
                 member.userName = ""
                 member.beginTime = ""
@@ -65,7 +65,7 @@ function additionMember() {
 
 onMounted(() => {
     select_loading.value = true
-    api.post("/api/room/", { userAccount: userStore.userAccount }).then((resault) => {
+    api.post(url.URLPrefix + url.RoomList, { userAccount: userStore.userAccount }).then((resault) => {
         resault.data.forEach((item: any) => {
             rooms.push(item)
         });

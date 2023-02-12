@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import api from "@/api";
+import url from "@/api/RequestInterface";
 import { ref, toRef, onMounted, onUpdated } from "vue";
 const props = defineProps<{
     room: {
@@ -17,13 +18,13 @@ const props = defineProps<{
 }>()
 // props 参数不具有响应式,使room具有响应式
 const room = toRef(props, 'room');
-let current_member_num = ref(0);
+let num = ref(0);
 const getCurrentMemberNum = () => {
-    api.post("/api/member/statistics/detail", {
+    api.post(url.URLPrefix + url.MemberCount, {
         roomId: room.value.roomId,
         userAccount:room.value.userAccount
     }).then((res) => {
-        current_member_num.value = res.data.statisticsMemberByRoomId;
+        num.value = res.data;
     })
 }
 onMounted(() => {
@@ -45,15 +46,15 @@ onUpdated(() => {
         <el-descriptions-item label="状态">
             <el-tag :type="!room.isDelete ? '' : 'danger'">{{ !room.isDelete ? "开放" : "关闭"}}</el-tag>
             <el-divider direction="vertical" />
-            <el-tag v-if="room.roomSeat - current_member_num > 25">座位充足</el-tag>
-            <el-tag v-else-if="room.roomSeat - current_member_num > 0" type="warning">较拥挤</el-tag>
+            <el-tag v-if="room.roomSeat - num > 25">座位充足</el-tag>
+            <el-tag v-else-if="room.roomSeat - num > 0" type="warning">较拥挤</el-tag>
             <el-tag v-else type="danger">暂无空闲位置</el-tag>
         </el-descriptions-item>
     </el-descriptions>
     <el-divider />
     <el-descriptions :border="true" :column="2">
         <el-descriptions-item label="总座位数">{{ room.roomSeat }}</el-descriptions-item>
-        <el-descriptions-item label="空闲座位">{{ room.roomSeat - current_member_num }}</el-descriptions-item>
+        <el-descriptions-item label="空闲座位">{{ room.roomSeat - num }}</el-descriptions-item>
     </el-descriptions>
     <el-divider />
     <el-descriptions :border="true" :column="2">

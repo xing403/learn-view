@@ -29,9 +29,19 @@ const routes: RouteRecordRaw = {
       name: 'rooms-addition',
       component: () => import('@/views/rooms/addition.vue'),
       meta: {
-        title: '增加自习室',
+        title: '添加自习室',
         breadcrumb: true,
         sidebar: true,
+      },
+    },
+    {
+      path: "/rooms/edit/:roomId",
+      name: 'rooms-edit',
+      component: () => import('@/views/rooms/edit.vue'),
+      meta: {
+        title: '编辑自习室',
+        breadcrumb: true,
+        sidebar: false,
       },
     },
   ]
