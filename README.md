@@ -14,7 +14,8 @@
 
 
 
-## :thinking:
+## :thinking: 开箱即用管理系统框架
+
 [fantastic-admin](https://github.com/hooray/fantastic-admin) 提供的灵感
 
 ## 安装
