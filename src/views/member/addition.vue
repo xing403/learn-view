@@ -17,7 +17,7 @@ const rooms: any = reactive([]);
 
 const validUserAccount = (rule: any, value: string, callback: Function) => {
     if (member.userName == "" && member.userAccount != "") {
-        api.post("/api/user/information", { "userAccount": value }).then((res) => {
+        api.post(url.URLPrefix + url.UserInformation, { "userAccount": value }).then((res) => {
             member.userName = res.data.userName;
         }).catch((err) => {
             member.userName = ""
@@ -26,6 +26,7 @@ const validUserAccount = (rule: any, value: string, callback: Function) => {
         })
         return callback();
     } else if (member.userAccount == "") {
+        member.userName = ""
         return callback(new Error('请输入用户账号'));
     } else {
         return callback();

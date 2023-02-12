@@ -26,6 +26,9 @@ export const StatisticsRoom = "/statistics/room";
 export const StatisticsMember = "/statistics/member";
 export const Detail = "/detail";
 
+export const User = "/user";
+export const UserInformation = "/user/information"
+
 
 const url = {
     URLPrefix,
@@ -50,7 +53,9 @@ const url = {
     Statistics,
     StatisticsRoom,
     StatisticsMember,
-    Detail
+    Detail,
+    User,
+    UserInformation
 }
 
 export default url;
