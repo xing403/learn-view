@@ -7,7 +7,6 @@ const userStore = useUserStore()
 const members = reactive([]) as any
 const detailMember = ref() as any
 let member_detail = ref(false);
-
 onMounted(() => {
     api.post("/api/merchant/", { userAccount: userStore.userAccount }).then((resault) => {
         resault.data.forEach((item:any) => {

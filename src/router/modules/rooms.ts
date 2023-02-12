@@ -10,7 +10,7 @@ const routes: RouteRecordRaw = {
     title: '自习室管理',
     breadcrumb: true,
     sidebar: true,
-    icon: "sidebar-menu",
+    icon: 'ic:baseline-chair',
     auth: ["merchant", "admin"]
   },
   children: [

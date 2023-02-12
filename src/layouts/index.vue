@@ -2,6 +2,7 @@
 import LinkView from './components/views/link.vue'
 import Header from './components/Header/index.vue'
 import SubSidebar from './components/SubSidebar/index.vue'
+import PageMain from "./components/PageMain/index.vue"
 import Topbar from './components/Topbar/index.vue'
 import useSettingsStore from '@/store/modules/settings'
 import useKeepAliveStore from '@/store/modules/keepAlive'
@@ -42,16 +43,21 @@ watch(() => routeInfo.path, () => {
             <router-view v-slot="{ Component, route }" :key="key">
               <transition name="main" mode="out-in" appear>
                 <keep-alive :include="keepAliveStore.list">
-                  <component :is="Component" v-show="!isLink" :key="route.path" />
+                  <PageMain>
+
+                    <component :is="Component" v-show="!isLink" :key="key" />
+                  </PageMain>
                 </keep-alive>
               </transition>
             </router-view>
+
             <LinkView v-if="isLink" />
           </div>
         </div>
       </div>
       <el-backtop :right="20" :bottom="20" title="回到顶部" />
     </div>
+
   </div>
 </template>
 

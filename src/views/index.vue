@@ -6,8 +6,6 @@
     
 <script setup lang='ts'>
 import useUserStore from '@/store/modules/user';
-import api from '@/api';
-
 const userStore = useUserStore()
 const permission = ref(userStore.permissions);
 </script>

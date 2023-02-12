@@ -27,15 +27,14 @@ const subSidebarActualWidth = computed(() => {
 })
 
 watch([
-  () => settingsStore.settings.app.enableDynamicTitle,
   () => settingsStore.title,
 ], () => {
-  if (settingsStore.settings.app.enableDynamicTitle && settingsStore.title) {
+
+  if (settingsStore.title) {
     const title = typeof settingsStore.title === 'function' ? settingsStore.title() : settingsStore.title
-    document.title = `${title} - ${import.meta.env.VITE_APP_TITLE}`
-  }
-  else {
-    document.title = import.meta.env.VITE_APP_TITLE
+    document.title = `${title} - 付费自习室系统`
+  } else {
+    document.title = "付费自习室系统"
   }
 })
 

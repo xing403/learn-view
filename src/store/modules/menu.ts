@@ -26,7 +26,6 @@ const useMenuStore = defineStore(
                 meta: {},
                 children: [],
             }]
-            // 从路由中获取
             returnMenus = routeStore.routes as Menu.recordMainRaw[]
             return returnMenus
         })

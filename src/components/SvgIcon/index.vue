@@ -41,6 +41,7 @@ const transformStyle = computed(() => {
 
 <template>
   <Icon v-if="name.indexOf('ep:') === 0" :icon="name" :style="transformStyle" />
+  <Icon v-else-if="name.indexOf('ic:') === 0" :icon="name" :style="transformStyle" />
   <svg v-else :style="transformStyle" aria-hidden="true">
     <use :xlink:href="`#icon-${name}`" />
   </svg>

@@ -15,11 +15,14 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   const userStore = useUserStore();
   const routeStore = useRouteStore()
-  const menuStore =useMenuStore()
+  const menuStore = useMenuStore()
   const settingsStore = useSettingsStore()
 
-  if (await userStore.login_status()) {
+  if (to.meta.title)
+    settingsStore.title = to.meta.title
     
+  if (await userStore.login_status()) {
+
     if (routeStore.isGenerate) {
       if (to.name === 'login') {
         next({
@@ -45,11 +48,10 @@ router.beforeEach(async (to, from, next) => {
         })
       }
       routeStore.setCurrentRemoveRoutes(removeRoutes)
-      
 
       // 生成导航
       menuStore.generateMenusAtFront();
-      
+
       // 动态路由生成并注册后，重新进入当前路由
       next({
         path: to.path,

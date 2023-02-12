@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-const Layout = () => import('@/layouts/index.vue')
+import additionVue from '@/views/member/addition.vue'
+import indexVue from '@/views/member/index.vue'
 
 const routes: RouteRecordRaw = {
   path: "/member",
@@ -10,14 +11,14 @@ const routes: RouteRecordRaw = {
     title: '会员管理',
     breadcrumb: true,
     sidebar: true,
-    icon: "sidebar-menu",
+    icon: "ep:user",
     auth: ["merchant", "admin"]
   },
   children: [
     {
       path: "/member",
       name: 'member',
-      component: () => import('@/views/member/index.vue'),
+      component: indexVue,
       meta: {
         title: '会员',
         breadcrumb: true,
@@ -27,7 +28,7 @@ const routes: RouteRecordRaw = {
     {
       path: "/member/addition",
       name: 'member-addition',
-      component: () => import('@/views/member/addition.vue'),
+      component: additionVue,
       meta: {
         title: '增加会员',
         breadcrumb: true,

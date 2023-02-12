@@ -13,6 +13,7 @@ const member = reactive({
     roomId: "",
 })
 const rooms: any = reactive([]);
+console.log("添加会员")
 
 const validUserAccount = (rule: any, value: string, callback: Function) => {
     if (member.userName == "" && member.userAccount != "") {
@@ -46,6 +47,8 @@ function additionMember() {
         if (valid) {
             member.beginTime = dayjs(member.dateRange[0]).format("YYYY-MM-DD HH:mm:ss")
             member.endTime = dayjs(member.dateRange[1]).format("YYYY-MM-DD HH:mm:ss")
+            console.log(member);
+            
             api.post("/api/member/addition", member).then(() => {
                 member.userAccount = ""
                 member.userName = ""
@@ -57,9 +60,7 @@ function additionMember() {
             loading.value = false
         }
     }).catch(() => loading.value = false)
-
     loading.value = false
-
 }
 
 onMounted(() => {
