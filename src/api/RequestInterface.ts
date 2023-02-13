@@ -5,11 +5,11 @@ export const Register = "/register";
 export const Logout = "/logout";
 
 export const Member = "/member";
+export const MemberList = "/member/list";
 export const MemberAddition = "/member/addition";
 export const MemberRemove = "/member/remove";
 export const MemberInformation = "/member/information";
-export const MemberModify = "/member/modify";
-export const MemberDetail = "/member/detail";
+export const MemberEdit = "/member/edit";
 export const MemberCount = "/member/count";
 
 export const Room = "/room";
@@ -40,9 +40,9 @@ const url = {
     MemberAddition,
     MemberRemove,
     MemberInformation,
-    MemberModify,
+    MemberEdit,
     MemberCount,
-    MemberDetail,
+    MemberList,
     Room,
     RoomList,
     RoomAddition,

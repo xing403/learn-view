@@ -1,8 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-import additionVue from '@/views/member/addition.vue'
-import indexVue from '@/views/member/index.vue'
-
 const routes: RouteRecordRaw = {
   path: "/member",
   name: 'member',
@@ -18,7 +15,7 @@ const routes: RouteRecordRaw = {
     {
       path: "/member",
       name: 'member',
-      component: indexVue,
+      component: () => import('@/views/member/index.vue'),
       meta: {
         title: '会员',
         breadcrumb: true,
@@ -28,11 +25,20 @@ const routes: RouteRecordRaw = {
     {
       path: "/member/addition",
       name: 'member-addition',
-      component: additionVue,
+      component: () => import('@/views/member/addition.vue'),
       meta: {
         title: '增加会员',
         breadcrumb: true,
         sidebar: true,
+      },
+    }, {
+      path: "/member/edit/:roomId/:userAccount",
+      name: 'member-edit',
+      component: () => import('@/views/member/edit.vue'),
+      meta: {
+        title: '编辑会员',
+        breadcrumb: true,
+        sidebar: false,
       },
     },
   ]
