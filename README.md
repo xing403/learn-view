@@ -1,4 +1,23 @@
 # learn-view
+> 自习室管理系统-前端
+
+## 前端技术栈
++ vite
++ vue
++ vue-router
++ pinia
++ element-Plus
++ unoCSS
++ iconify
+## 目录结构
+
+项目完成后，写的内容 :sleeping:
+
+
+## :thinking: 开箱即用管理系统框架
+
+[fantastic-admin](https://github.com/hooray/fantastic-admin) 提供的灵感
+
 ## 安装
 ```shell
 pnpm install
