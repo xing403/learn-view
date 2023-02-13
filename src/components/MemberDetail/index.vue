@@ -1,18 +1,19 @@
 <script setup lang='ts' name="memeberDetail">
 
-const props = defineProps<{data:{
-    roomId: number,
-    roomName: string
-    userName: string
-    userAccount: string,
-    userAvatar: string,
-    userPhone: string
-    gender: string
-    beginTime: string
-    endTime: string
-
-}}>();
-const data = toRef(props,"data")
+const props = defineProps<{
+    data: {
+        roomId: number,
+        roomName: string
+        userName: string
+        userAccount: string,
+        userAvatar: string,
+        userPhone: string
+        gender: string
+        beginTime: string
+        endTime: string
+    }
+}>();
+const data = toRef(props, "data")
 console.log(data)
 </script>
 
@@ -25,8 +26,12 @@ console.log(data)
     <el-divider />
     <el-descriptions :border="true" :column="2">
         <el-descriptions-item label="自习室名称" :span="2">{{ data.roomName }}</el-descriptions-item>
-        <el-descriptions-item label="开始时间">{{ data.beginTime }}</el-descriptions-item>
-        <el-descriptions-item label="结束时间">{{ data.endTime }}</el-descriptions-item>
+        <el-descriptions-item label="开始时间">
+            <el-date-picker v-model="data.beginTime" disabled></el-date-picker>
+        </el-descriptions-item>
+        <el-descriptions-item label="结束时间">
+            <el-date-picker v-model="data.endTime" disabled></el-date-picker>
+        </el-descriptions-item>
     </el-descriptions>
 </template>
 

@@ -22,7 +22,7 @@ let num = ref(0);
 const getCurrentMemberNum = () => {
     api.post(url.URLPrefix + url.MemberCount, {
         roomId: room.value.roomId,
-        userAccount:room.value.userAccount
+        userAccount: room.value.userAccount
     }).then((res) => {
         num.value = res.data;
     })
@@ -58,8 +58,12 @@ onUpdated(() => {
     </el-descriptions>
     <el-divider />
     <el-descriptions :border="true" :column="2">
-        <el-descriptions-item label="创建时间">{{ room.createTime }}</el-descriptions-item>
-        <el-descriptions-item label="最后修改时间">{{ room.updateTime }}</el-descriptions-item>
+        <el-descriptions-item label="创建时间">
+            <el-date-picker v-model="room.createTime" disabled></el-date-picker>
+        </el-descriptions-item>
+        <el-descriptions-item label="最后修改时间">
+            <el-date-picker v-model="room.updateTime" disabled></el-date-picker>
+        </el-descriptions-item>
         <el-descriptions-item label="介绍">{{ room.roomDesc }}</el-descriptions-item>
     </el-descriptions>
 </template>
