@@ -22,8 +22,13 @@ export const RoomInformation = "/room/information";
 export const RoomEdit = "/room/edit";
 export const RoomDetail = "/room/detail";
 export const Statistics = "/statistics";
+
 export const StatisticsRoom = "/statistics/room";
-export const StatisticsMember = "/statistics/member";
+export const StatisticSmerchant = "/statistics/merchant";
+
+
+
+
 export const Detail = "/detail";
 
 export const User = "/user";
@@ -52,7 +57,7 @@ const url = {
     RoomDetail,
     Statistics,
     StatisticsRoom,
-    StatisticsMember,
+    StatisticSmerchant,
     Detail,
     User,
     UserInformation
