@@ -59,10 +59,11 @@ onUpdated(() => {
     <el-divider />
     <el-descriptions :border="true" :column="2">
         <el-descriptions-item label="创建时间">
-            <el-date-picker v-model="room.createTime" disabled></el-date-picker>
+
+            <DateTime :data="room.createTime" :format="'YYYY-MM-DD HH:mm:ss'"></DateTime>
         </el-descriptions-item>
         <el-descriptions-item label="最后修改时间">
-            <el-date-picker v-model="room.updateTime" disabled></el-date-picker>
+            <DateTime :data="room.updateTime" :format="'YYYY-MM-DD HH:mm:ss'"></DateTime>
         </el-descriptions-item>
         <el-descriptions-item label="介绍">{{ room.roomDesc }}</el-descriptions-item>
     </el-descriptions>

@@ -20,7 +20,7 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.meta.title)
     settingsStore.title = to.meta.title
-    
+
   if (await userStore.login_status()) {
 
     if (routeStore.isGenerate) {
@@ -59,16 +59,17 @@ router.beforeEach(async (to, from, next) => {
       })
     }
   } else {
-    if (to.name !== 'login') {
+    //未登录状态 登录 注册不拦截
+    if (to.name == 'login' || to.name == "register") {
+      
+      next()
+    } else {
       next({
         name: 'login',
         query: {
           redirect: to.fullPath !== '/' ? to.fullPath : undefined,
         },
       })
-    }
-    else {
-      next()
     }
   }
 })

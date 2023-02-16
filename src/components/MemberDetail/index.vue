@@ -27,10 +27,10 @@ console.log(data)
     <el-descriptions :border="true" :column="2">
         <el-descriptions-item label="自习室名称" :span="2">{{ data.roomName }}</el-descriptions-item>
         <el-descriptions-item label="开始时间">
-            <el-date-picker v-model="data.beginTime" disabled></el-date-picker>
+            <DateTime :data="data.beginTime" :format="'YYYY-MM-DD HH:mm'"></DateTime>
         </el-descriptions-item>
         <el-descriptions-item label="结束时间">
-            <el-date-picker v-model="data.endTime" disabled></el-date-picker>
+            <DateTime :data="data.endTime" :format="'YYYY-MM-DD HH:mm'"></DateTime>
         </el-descriptions-item>
     </el-descriptions>
 </template>

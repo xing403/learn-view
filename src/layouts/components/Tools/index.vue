@@ -12,7 +12,7 @@ const userStore = useUserStore()
 const mainPage = useMainPage()
 const { isFullscreen, toggle } = useFullscreen()
 
-function userCommand(command: 'home' | 'setting'| 'logout') {
+function userCommand(command: 'home' | 'setting' | 'logout') {
   switch (command) {
     case 'home':
       router.push({
@@ -38,7 +38,8 @@ function userCommand(command: 'home' | 'setting'| 'logout') {
 <template>
   <div class="tools">
     <div class="buttons">
-      <span v-if="settingsStore.mode === 'pc' && settingsStore.settings.toolbar.enableFullscreen" class="item" @click="toggle">
+      <span v-if="settingsStore.mode === 'pc' && settingsStore.settings.toolbar.enableFullscreen" class="item"
+        @click="toggle">
         <el-icon>
           <svg-icon :name="isFullscreen ? 'fullscreen-exit' : 'fullscreen'" />
         </el-icon>
@@ -48,7 +49,8 @@ function userCommand(command: 'home' | 'setting'| 'logout') {
           <svg-icon name="ep:refresh-right" />
         </el-icon>
       </span>
-      <span v-if="settingsStore.settings.toolbar.enableColorScheme" class="item" @click="settingsStore.setColorScheme(settingsStore.settings.app.colorScheme === 'dark' ? 'light' : 'dark')">
+      <span v-if="settingsStore.settings.toolbar.enableColorScheme" class="item"
+        @click="settingsStore.setColorScheme(settingsStore.settings.app.colorScheme === 'dark' ? 'light' : 'dark')">
         <el-icon>
           <svg-icon v-show="settingsStore.settings.app.colorScheme === 'light'" name="ep:sunny" />
           <svg-icon v-show="settingsStore.settings.app.colorScheme === 'dark'" name="ep:moon" />
@@ -62,7 +64,7 @@ function userCommand(command: 'home' | 'setting'| 'logout') {
             <svg-icon name="ep:user-filled" />
           </el-icon>
         </el-avatar>
-        {{ userStore.userAccount }}
+        {{ userStore.userName ?? userStore.userAccount }}
         <el-icon>
           <svg-icon name="ep:caret-bottom" />
         </el-icon>

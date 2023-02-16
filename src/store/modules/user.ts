@@ -11,6 +11,7 @@ const useUserStore = defineStore(
     const menuStore = useMenuStore()
 
     let userAccount = ref(localStorage.userAccount ?? '');
+    let userName= ref(localStorage.userName ?? undefined);
     let permissions = ref(localStorage.permissions ?? '');
     let last_login_time = ref(localStorage.last_login_time ?? "");
 
@@ -20,8 +21,8 @@ const useUserStore = defineStore(
     }) {
       const res = await api.post(url.URLPrefix + url.Login, data)
       localStorage.setItem('userAccount', res.data.userAccount)
+      localStorage.setItem('userName', res.data.userName)
       localStorage.setItem('permissions', res.data.userRole)
-
       let time = new Date().getTime().toString()
       localStorage.setItem("last_login_time", time)
       userAccount.value = res.data.userAccount
@@ -38,6 +39,7 @@ const useUserStore = defineStore(
     }) {
       const res = await api.post(url.URLPrefix + url.Register, data)
       localStorage.setItem('userAccount', res.data.userAccount)
+      localStorage.setItem('userName', res.data.userName)
       localStorage.setItem('permissions', res.data.userRole)
       localStorage.setItem("last_login_time", new Date().getTime().toString())
       userAccount = res.data.userAccount
@@ -56,6 +58,7 @@ const useUserStore = defineStore(
     // 登出
     async function logout() {
       localStorage.removeItem('userAccount')
+      localStorage.removeItem('userName')
       localStorage.removeItem('last_login_time')
       userAccount.value = ''
       last_login_time.value = ''
@@ -68,6 +71,7 @@ const useUserStore = defineStore(
     }
     return {
       userAccount,
+      userName,
       permissions,
       last_login_time,
       login,

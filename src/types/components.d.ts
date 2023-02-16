@@ -7,10 +7,12 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    DateTime: typeof import('./../components/DateTime/index.vue')['default']
     MemberDetail: typeof import('./../components/MemberDetail/index.vue')['default']
     RoomDetail: typeof import('./../components/RoomDetail/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./../components/SvgIcon/index.vue')['default']
+    Time: typeof import('./../components/Time/index.vue')['default']
   }
 }

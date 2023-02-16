@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import { ref, reactive } from 'vue';
+import dayjs from "dayjs"
 import MemberDetail from "@/components/MemberDetail/index.vue"
 import useUserStore from '@/store/modules/user';
 import api from '@/api';
@@ -21,9 +21,9 @@ const viewDetails = (row: any) => {
     member_detail.value = true
 }
 const editMember = (row: any) => {
-router.push({
-    path :"/member/edit/" + row.roomId + "/" + row.userAccount
-})
+    router.push({
+        path: "/member/edit/" + row.roomId + "/" + row.userAccount
+    })
 }
 </script>
 
@@ -35,7 +35,11 @@ router.push({
             <el-table-column label="自习室名称" sortable prop="roomName"></el-table-column>
             <el-table-column label="性别" prop="gender"></el-table-column>
             <el-table-column label="联系电话" prop="userPhone"></el-table-column>
-            <el-table-column column-key="endTime" sortable label="到期时间" prop="endTime"></el-table-column>
+            <el-table-column column-key="endTime" sortable label="到期时间" prop="endTime">
+                <template #default="scope">
+                    <DateTime :data="scope.row.endTime" :format="'YYYY-MM-DD'"></DateTime>
+                </template>
+            </el-table-column>
             <el-table-column label="查看详情" width="150px">
                 <template #default="scope">
                     <el-button link type="primary" @click="viewDetails(scope.row)">查看详情</el-button>

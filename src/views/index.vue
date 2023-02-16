@@ -77,9 +77,83 @@ function CreateRoomMemberChart() {
 
     option && myChart.setOption(option);
 }
-
-
+const mockNum = ref(100)
+let initdata = ref(1000)
+const mockdata = reactive([]) as any
+const mockdataFunc = ()=>{
+    
+    api.post("https://sql-father-backend-974538-1256524210.ap-shanghai.run.tcloudbase.com/api/sql/generate/schema",
+    {
+    "dbName": null,
+    "tableName": "member",
+    "tableComment": "会员表",
+    "mockNum": mockNum.value,
+    "fieldList": [
+        {
+            "fieldName": "userAccount",
+            "fieldType": "VARCHAR(256)",
+            "defaultValue": null,
+            "notNull": false,
+            "comment": "用户编号",
+            "primaryKey": false,
+            "autoIncrement": false,
+            "mockType": "递增",
+            "mockParams": initdata.value,
+            "onUpdate": null
+        },
+        {
+            "fieldName": "roomId",
+            "fieldType": "BIGINT",
+            "defaultValue": null,
+            "notNull": false,
+            "comment": "自习室编号",
+            "primaryKey": false,
+            "autoIncrement": false,
+            "mockType": "词库",
+            "mockParams": 79,
+            "onUpdate": null
+        },
+        {
+            "fieldName": "beginTime",
+            "fieldType": "TIMESTAMP",
+            "defaultValue": "CURRENT_TIMESTAMP",
+            "notNull": false,
+            "comment": "会员开始时间",
+            "primaryKey": false,
+            "autoIncrement": false,
+            "mockType": "随机",
+            "mockParams": "日期",
+            "onUpdate": null
+        },
+        {
+            "fieldName": "endTime",
+            "fieldType": "TIMESTAMP",
+            "defaultValue": "CURRENT_TIMESTAMP",
+            "notNull": false,
+            "comment": "会员结束时间",
+            "primaryKey": false,
+            "autoIncrement": false,
+            "mockType": "随机",
+            "mockParams": "日期",
+            "onUpdate": null
+        }
+    ]
+}
+    ).then(res => {
+        (res.data.insertSql as string).split(";").forEach(item => {
+            if(item != "")
+            mockdata.push(item + ";")
+        })
+        console.log(mockdata.lenght)
+        if(initdata.value + mockNum.value < 10000){
+            initdata.value += mockNum.value;
+            mockdataFunc()
+        }
+    })
+}
 onMounted(() => {
+    // mockdataFunc()
+
     if (permission.value == "merchant") {
         // 请求merchant 统计
         console.log("merchant");

@@ -76,14 +76,17 @@ const handleRegister = () => {
                     show-password></el-input>
             </el-form-item>
 
-            <el-form-item prop="userRole" label="注册身份">
+            <el-form-item prop="userRole">
                 <el-radio-group v-model="user.userRole">
                     <el-radio label="user">普通用户</el-radio>
                     <el-radio label="merchant">商家</el-radio>
                 </el-radio-group>
             </el-form-item>
-            <el-button type="primary" @click="handleRegister" style="width: 100%;" :loading="loading"> 注 册 </el-button>
 
+            <el-form-item prop="userRole">
+                <el-button type="primary" @click="handleRegister" style="width: 100%;" :loading="loading"> 注 册
+                </el-button>
+            </el-form-item>
             <div class="footer">
                 <span class="text-coolgray text-size-base">已经有帐号?</span>
                 <el-link href="/login" style="color: #409eff;">去登录</el-link>
