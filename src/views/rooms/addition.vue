@@ -3,7 +3,7 @@ import { checkPhone } from "@/utils/composables/check";
 import useUserStore from "@/store/modules/user";
 import { FormInstance } from "element-plus";
 import api from "@/api";
-
+import url from "@/api/RequestInterface";
 const userStore = useUserStore()
 const room = reactive({
     roomName: "",
@@ -27,7 +27,7 @@ const additionRoom = () => {
     isloading.value = true
     formRef.value && formRef.value.validate((valid) => {
         if (valid) {
-            api.post("/api/room/add", room)
+            api.post(url.URLPrefix + url.RoomAddition, room)
         }
         isloading.value = false
     }).catch(() => {

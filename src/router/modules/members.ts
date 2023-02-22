@@ -5,7 +5,7 @@ const routes: RouteRecordRaw = {
   name: 'member',
   component: () => import('@/views/member/index.vue'),
   meta: {
-    title: '会员管理',
+    title: '预约管理',
     breadcrumb: true,
     sidebar: true,
     icon: "ep:user",
@@ -17,7 +17,7 @@ const routes: RouteRecordRaw = {
       name: 'member',
       component: () => import('@/views/member/index.vue'),
       meta: {
-        title: '会员',
+        title: '预约列表',
         breadcrumb: true,
         sidebar: true,
       },
@@ -27,7 +27,7 @@ const routes: RouteRecordRaw = {
       name: 'member-addition',
       component: () => import('@/views/member/addition.vue'),
       meta: {
-        title: '增加会员',
+        title: '添加预约',
         breadcrumb: true,
         sidebar: true,
       },

@@ -1,14 +1,11 @@
 <script setup lang='ts'>
 import { ref, reactive } from 'vue';
-import RoomDetail from "@/components/RoomDetail/index.vue"
 import useUserStore from '@/store/modules/user';
 import api from '@/api';
 import url from '@/api/RequestInterface';
 import router from '@/router';
 const userStore = useUserStore()
 const rooms = reactive([]) as any
-const detailRoom = ref() as any
-let room_detail_view = ref(false);
 let loading = ref(false)
 onMounted(() => {
     loading.value = true
@@ -21,8 +18,9 @@ onMounted(() => {
 })
 
 const viewDetails = (row: any) => {
-    room_detail_view.value = true;
-    detailRoom.value = row;
+    router.push({
+        path:"/rooms/detail/" + row.roomId
+    })
 }
 const removeRoom = (row: any) => {
     console.log(row);
@@ -31,8 +29,6 @@ const removeRoom = (row: any) => {
     })
 }
 const editRoom = (row: any) => {
-    console.log(row);
-
     router.push({
         path: "/rooms/edit/" + row.roomId,
     })
@@ -68,12 +64,7 @@ const editRoom = (row: any) => {
                 </template>
             </el-table-column>
         </el-table>
-        <el-dialog v-model="room_detail_view" title="自习室详细信息">
-            <RoomDetail :room="detailRoom"></RoomDetail>
-        </el-dialog>
     </div>
 </template>
 
-<style lang='less' scoped>
-
-</style>
+<style lang='less' scoped></style>

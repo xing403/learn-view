@@ -43,6 +43,15 @@ const routes: RouteRecordRaw = {
         breadcrumb: true,
         sidebar: false,
       },
+    },{
+      path: "/rooms/detail/:roomId",
+      name: 'rooms-detail',
+      component: () => import('@/views/rooms/detail.vue'),
+      meta: {
+        title: '自习室详细信息',
+        breadcrumb: true,
+        sidebar: false,
+      },
     },
   ]
 }
